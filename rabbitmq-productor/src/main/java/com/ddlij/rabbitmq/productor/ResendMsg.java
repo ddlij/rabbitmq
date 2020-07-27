@@ -76,7 +76,7 @@ public class ResendMsg {
                 message2.setId(msgId);
                 message2.setTryCount(msgLog.getTryCount() + 1);
 
-                String errorMsg = "";
+                String errorMsg = null;
                 try {
                     CorrelationData correlationData = new CorrelationData(msgId + "");
                     rabbitTemplate.convertAndSend(msgLog.getExchangeName(), msgLog.getRoutingKey(), JSONObject.parseObject(msgLog.getMessage()), correlationData);// 重新投递
