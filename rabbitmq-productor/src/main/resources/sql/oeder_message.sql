@@ -9,5 +9,6 @@ CREATE TABLE `order_message` (
 	`try_count` int(11) not null DEFAULT '0' COMMENT '重试次数',
 	`creat_time` datetime DEFAULT NULL COMMENT '创建时间',
 	`modify_time` datetime DEFAULT NULL COMMENT '修改时间',
+	error_msg varchar(500) DEFAULT NULL COMMENT '错误日志',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='消息表';

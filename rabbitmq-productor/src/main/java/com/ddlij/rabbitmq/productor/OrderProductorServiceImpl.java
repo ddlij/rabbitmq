@@ -47,6 +47,7 @@ public class OrderProductorServiceImpl implements OrderProductorService{
             OrderMessage message1 = new OrderMessage();
             message1.setStatusId(Status.SENDING.getIndex());
             message1.setId(message.getId());
+            message1.setErrorMsg(e.getMessage());
             orderMessageService.doUpdateMessageByCondition(message1);
         }
 

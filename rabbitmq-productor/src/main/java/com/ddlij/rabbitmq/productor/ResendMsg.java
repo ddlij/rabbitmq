@@ -75,13 +75,17 @@ public class ResendMsg {
                 OrderMessage message2 = new OrderMessage();
                 message2.setId(msgId);
                 message2.setTryCount(msgLog.getTryCount() + 1);
+
+                String errorMsg = "";
                 try {
                     CorrelationData correlationData = new CorrelationData(msgId + "");
                     rabbitTemplate.convertAndSend(msgLog.getExchangeName(), msgLog.getRoutingKey(), JSONObject.parseObject(msgLog.getMessage()), correlationData);// 重新投递
                     message2.setStatusId(Status.SUCCESS.getIndex());
                 }catch (Exception e) {
                     e.printStackTrace();
+                    errorMsg = e.getMessage();
                 }finally {
+                    message2.setErrorMsg(errorMsg);
                     orderMessageService.doUpdateMessageByCondition(message2);
                 }
 

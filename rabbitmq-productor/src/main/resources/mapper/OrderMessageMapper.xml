@@ -130,6 +130,9 @@
       <if test="tryCount != null" >
         try_count = #{tryCount,jdbcType=INTEGER},
       </if>
+      <if test="errorMsg != null" >
+        error_msg = #{errorMsg,jdbcType=VARCHAR},
+      </if>
       <if test="creatTime != null" >
         creat_time = #{creatTime,jdbcType=TIMESTAMP},
       </if>
