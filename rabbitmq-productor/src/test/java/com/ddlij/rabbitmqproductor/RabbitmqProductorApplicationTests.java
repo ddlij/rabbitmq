@@ -1,19 +1,17 @@
 package com.ddlij.rabbitmqproductor;
 
-import com.ddlij.rabbitmq.productor.RabbitmqProductorApplication;
-import com.ddlij.rabbitmq.productor.entity.Order;
-import com.ddlij.rabbitmq.productor.service.OrderProductor;
+import com.ddlij.rabbitmq.RabbitmqProductorApplication;
+import com.ddlij.rabbitmq.entity.Order;
+import com.ddlij.rabbitmq.productor.OrderProductorServiceImpl;
 import com.rabbitmq.client.*;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 
 @RunWith(SpringRunner.class)
@@ -26,11 +24,11 @@ class RabbitmqProductorApplicationTests {
 
     @Test
     public void testSend1() throws Exception{
-        OrderProductor orderProductor = new OrderProductor();
+        OrderProductorServiceImpl orderProductor = new OrderProductorServiceImpl();
         Order order = new Order();
-        order.setId("11223344");
+        order.setId(System.currentTimeMillis());
         order.setName("ddlij");
-        order.setMessageId(System.currentTimeMillis() + "$" + UUID.randomUUID().toString());
+        order.setMessageId(System.currentTimeMillis());
         orderProductor.send(order);
     }
 

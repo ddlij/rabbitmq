@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ddlij.rabbitmq.dao.OrderMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.ddlij.rabbitmq.entity.OrderMessage" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="exchange_name" property="exchangeName" jdbcType="VARCHAR" />
+    <result column="routing_key" property="routingKey" jdbcType="VARCHAR" />
+    <result column="queue_name" property="queueName" jdbcType="VARCHAR" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+    <result column="status_id" property="statusId" jdbcType="INTEGER" />
+    <result column="try_count" property="tryCount" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, exchange_name, routing_key, queue_name, message, status_id, try_count, creat_time, 
+    modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_message
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.ddlij.rabbitmq.entity.OrderMessage" >
+    select
+    <include refid="Base_Column_List" />
+    from order_message
+    where 1 = 1
+    <if test="id != null" >
+      and id = #{id,jdbcType=BIGINT}
+    </if>
+    <if test="statusId != null" >
+      and status_id = #{statusId}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from order_message
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ddlij.rabbitmq.entity.OrderMessage" >
+    insert into order_message (id, exchange_name, routing_key, 
+      queue_name, message, status_id, 
+      try_count, creat_time, modify_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{exchangeName,jdbcType=VARCHAR}, #{routingKey,jdbcType=VARCHAR}, 
+      #{queueName,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{statusId,jdbcType=INTEGER}, 
+      #{tryCount,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ddlij.rabbitmq.entity.OrderMessage" >
+    insert into order_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="exchangeName != null" >
+        exchange_name,
+      </if>
+      <if test="routingKey != null" >
+        routing_key,
+      </if>
+      <if test="queueName != null" >
+        queue_name,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="statusId != null" >
+        status_id,
+      </if>
+      <if test="tryCount != null" >
+        try_count,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="exchangeName != null" >
+        #{exchangeName,jdbcType=VARCHAR},
+      </if>
+      <if test="routingKey != null" >
+        #{routingKey,jdbcType=VARCHAR},
+      </if>
+      <if test="queueName != null" >
+        #{queueName,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="statusId != null" >
+        #{statusId,jdbcType=INTEGER},
+      </if>
+      <if test="tryCount != null" >
+        #{tryCount,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ddlij.rabbitmq.entity.OrderMessage" >
+    update order_message
+    <set >
+      <if test="exchangeName != null" >
+        exchange_name = #{exchangeName,jdbcType=VARCHAR},
+      </if>
+      <if test="routingKey != null" >
+        routing_key = #{routingKey,jdbcType=VARCHAR},
+      </if>
+      <if test="queueName != null" >
+        queue_name = #{queueName,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="statusId != null" >
+        status_id = #{statusId,jdbcType=INTEGER},
+      </if>
+      <if test="tryCount != null" >
+        try_count = #{tryCount,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ddlij.rabbitmq.entity.OrderMessage" >
+    update order_message
+    set exchange_name = #{exchangeName,jdbcType=VARCHAR},
+      routing_key = #{routingKey,jdbcType=VARCHAR},
+      queue_name = #{queueName,jdbcType=VARCHAR},
+      message = #{message,jdbcType=VARCHAR},
+      status_id = #{statusId,jdbcType=INTEGER},
+      try_count = #{tryCount,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

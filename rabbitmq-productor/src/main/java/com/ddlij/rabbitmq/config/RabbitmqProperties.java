@@ -1,4 +1,4 @@
-package com.ddlij.rabbitmq.productor.config;
+package com.ddlij.rabbitmq.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
@@ -19,6 +19,12 @@ public class RabbitmqProperties {
     private String username;
 
     private String password;
+
+    private String exchangeName;
+
+    private String queueName;
+
+    private String routingKey;
 
     public String getHost() {
         return host;
@@ -52,4 +58,27 @@ public class RabbitmqProperties {
         this.password = password;
     }
 
+    public String getExchangeName() {
+        return exchangeName;
+    }
+
+    public void setExchangeName(String exchangeName) {
+        this.exchangeName = exchangeName;
+    }
+
+    public String getQueueName() {
+        return queueName;
+    }
+
+    public void setQueueName(String queueName) {
+        this.queueName = queueName;
+    }
+
+    public String getRoutingKey() {
+        return routingKey;
+    }
+
+    public void setRoutingKey(String routingKey) {
+        this.routingKey = routingKey;
+    }
 }

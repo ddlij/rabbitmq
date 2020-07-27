@@ -1,12 +1,5 @@
-package com.ddlij.rabbitmq.productor.config;
+package com.ddlij.rabbitmq.config;
 
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
-import org.springframework.amqp.support.ConsumerTagStrategy;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -15,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RabbitmqConfig {
-    @Autowired
+    /*@Autowired
     private RabbitmqProperties rabbitmqProperties;
 
     @Bean
@@ -46,5 +39,5 @@ public class RabbitmqConfig {
         });
 
         return container;
-    }
+    }*/
 }

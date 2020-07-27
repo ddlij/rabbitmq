@@ -1,15 +1,13 @@
-package com.ddlij.rabbitmq.productor.web;
+package com.ddlij.rabbitmq.web;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSON;
-import com.ddlij.rabbitmq.productor.entity.Order;
-import com.ddlij.rabbitmq.productor.service.OrderProductor;
+import com.ddlij.rabbitmq.entity.Order;
+import com.ddlij.rabbitmq.productor.OrderProductorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -20,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 public class RabbitmqRestController {
 
     @Autowired
-    private OrderProductor orderProductor;
+    private OrderProductorService orderProductorService;
 
     @RequestMapping(value="/com/ddlij/rabbitmq/testSendMessage.json",method = RequestMethod.POST)
     public String toListPage(HttpServletRequest request) throws Exception{
@@ -31,11 +29,11 @@ public class RabbitmqRestController {
         }
         String messageId = request.getParameter("messageId");
         if(messageId != null){
-            order.setMessageId(messageId);
+            order.setMessageId(Long.parseLong(messageId.trim()));
         }
         try {
-            order.setId(System.currentTimeMillis() + "$");
-            orderProductor.send(order);
+            order.setId(System.currentTimeMillis());
+            orderProductorService.send(order);
         }catch (Exception e) {
             e.printStackTrace();
         }

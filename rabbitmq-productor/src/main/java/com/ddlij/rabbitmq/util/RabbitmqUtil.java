@@ -1,19 +1,12 @@
-package com.ddlij.rabbitmq.productor.util;
+package com.ddlij.rabbitmq.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.rabbitmq.client.*;
-import org.apache.commons.lang3.builder.ToStringExclude;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeoutException;
 
 /**
  * @author ddlij
@@ -25,11 +18,20 @@ public class RabbitmqUtil {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    private String EXCHANGE_NAME = "order-exchange";
+    private String ROUTING_KEY = "order.key";
+    private String QUEUE_NAME = "test";
+
+    /**
+     * 向mq推送消息
+     * @param object
+     * @throws Exception
+     */
     public void sendObjectMessage(Object object) throws Exception{
         CorrelationData correlationData = new CorrelationData();
-        correlationData.setId("11223344");
-        rabbitTemplate.convertAndSend("order-exchange",  //exchange
-                "order.key",  //routing-key
+        correlationData.setId(System.currentTimeMillis() + "corr");
+        rabbitTemplate.convertAndSend(EXCHANGE_NAME,  //exchange
+                ROUTING_KEY,  //routing-key
                 JSONObject.parseObject(JSONObject.toJSON(object).toString()),  //message Object
                 correlationData);
         System.out.println("消息发送成功");
@@ -40,11 +42,10 @@ public class RabbitmqUtil {
         logger.info("template是否为空：{}",(rabbitTemplate==null));
         CorrelationData correlationData = new CorrelationData();
         correlationData.setId("55667788");
-        rabbitTemplate.convertAndSend("order-exchange",  //exchange
-                "order-key",  //routing-key
+        rabbitTemplate.convertAndSend(EXCHANGE_NAME,  //exchange
+                ROUTING_KEY,  //routing-key
                 message,  //message Object
                 correlationData);
     }
-
 
 }
