@@ -2,6 +2,7 @@ package com.ddlij.rabbitmq.service;
 
 import com.ddlij.rabbitmq.dao.OrderMessageMapper;
 import com.ddlij.rabbitmq.entity.OrderMessage;
+import com.ddlij.rabbitmq.util.SnowFlakeGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class OrderMessageServiceImpl implements OrderMessageService{
      */
     public OrderMessage doSaveMessage(OrderMessage message){
         if(message.getId() == null){
-            message.setId(System.currentTimeMillis());
+            message.setId(SnowFlakeGenerator.getNextId());
         }
         message.setStatusId(1);
         message.setTryCount(0);
